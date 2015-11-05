@@ -1,12 +1,12 @@
 {
-  "name": "ngTouchSpin",
+  "name": "ramTouchSpin",
   "version": "0.2.0",
-  "homepage": "https://github.com/jkuri/ngTouchSpin",
+  "homepage": "https://github.com/sjoerd222888/ramTouchSpin",
   "authors": [
-    "Jan Kuri <jkuri88@gmail.com>"
+    "Alexander Timmermans <sjoerd222888@gmail.com>"
   ],
   "description": "AngularJS Bootstrap Touchspin Implementation",
-  "main": "src/js/ngTouchSpin.js",
+  "main": "src/js/ramTouchSpin.js",
   "keywords": [
     "Bootstrap",
     "Touchspin"
