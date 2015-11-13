@@ -99,17 +99,17 @@ angular.module('ram.touchspin', [])
             scope.increment = function () {
                 var value = parseFloat(parseFloat(Number(scope.model)) + parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.max != undefined && value > scope.max) return;
-                scope.model = value;
+                scope.model = toFloat(value);
             };
 
             scope.decrement = function () {
                 var value = parseFloat(parseFloat(Number(scope.model)) - parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.max != undefined && value < scope.min) {
                     value = parseFloat(scope.min).toFixed(scope.decimals);
-                    scope.model = value;
+                    scope.model = toFloat(value);
                     return;
                 }
-                scope.model = value;
+                scope.model = toFloat(value);
             };
 
             scope.startSpinUp = function () {

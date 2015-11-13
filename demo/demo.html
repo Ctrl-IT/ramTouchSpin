@@ -21,6 +21,9 @@
         <input type="text" model="testValue" vertical="false" ram-touch-spin>
         <span>testValue: {{testValue}}</span>
         
+        <button type="button" ng-click="setTypeDirect()">Get Type</button>
+        <span>Type: {{varSimpleType}}</span>
+        
         <h2>Custom decimal separator</h2>
         <p>Value directly on scope with custom decimal separator (# symbol)</p>
         <input type="text" model="testValue" vertical="false" decimal-sep="#" ram-touch-spin step="0.1" decimals="2">
@@ -50,7 +53,17 @@
                 $scope.$apply();
             },3000);
             
- 
+            
+            
+            $scope.setTypeDirect = function(){
+                $scope.varSimpleType = toType($scope.testValue)
+            }
+            
+            var toType = function(obj) {
+                return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+            }
+            
+            $scope.setTypeDirect();
         })
        
 	</script>
