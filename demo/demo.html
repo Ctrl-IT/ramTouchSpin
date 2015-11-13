@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RamTouchSpin - Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+    <script src="../src/js/ramTouchSpin.js"></script>
+    <link rel="stylesheet" href="../src/css/ramTouchSpin.css"">
+</head>
+<body>
+    <div id="example" ng-app="test" ng-controller="TestController">
+    
+        <h1>ramTouchSpin - Demo</h1>
+    
+        <h2>Value on object</h2>
+        <input type="text" model="testObject.testValue" vertical="true" ram-touch-spin>
+        <span>testObject.testValue: {{testObject.testValue}}</span>
+        
+        <h2>Value directly on scope</h2>
+        <input type="text" model="testValue" vertical="false" ram-touch-spin>
+        <span>testValue: {{testValue}}</span>
+        
+        <h2>Custom decimal separator</h2>
+        <p>Value directly on scope with custom decimal separator (# symbol)</p>
+        <input type="text" model="testValue" vertical="false" decimal-sep="#" ram-touch-spin step="0.1" decimals="2">
+        <span>testValue: {{testValue}}</span>
+        
+        <h2>Value changed by timer after 3000 ms</h2>
+        <input type="text" model="testObjectDelayValue.testValue" vertical="false" ram-touch-spin>
+        <span>testObjectDelayValue.testValue: {{testObjectDelayValue.testValue}}</span>
+        
+    </div>
+	<script>
+      
+    angular.module("test", ["ram.touchspin"]).controller("TestController", function($scope){
+			$scope.testObject = {
+                testValue : 2
+            };
+            $scope.testValue = 3;
+            $scope.testObjectDelayValue = {
+                testValue : 7
+            }
+            
+            setTimeout(function(){
+                var myObj = {
+                    testValue : 11
+                };
+                $scope.testObjectDelayValue = myObj;
+                $scope.$apply();
+            },3000);
+            
+ 
+        })
+       
+	</script>
+</body>
+</html>

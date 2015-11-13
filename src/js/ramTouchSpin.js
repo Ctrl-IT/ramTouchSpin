@@ -1,6 +1,6 @@
 angular.module('ram.touchspin', [])
 
-.directive('ramTouchSpin', ['$timeout', '$interval', '$document', function ($timeout, $interval, $document) {
+.directive('ramTouchSpin', ['$timeout', '$interval', '$document', '$locale', function ($timeout, $interval, $document, $locale) {
     'use strict';
 
     var keyCodes = {
@@ -21,7 +21,15 @@ angular.module('ram.touchspin', [])
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
         scope.initval = attrs.initval || '';
         scope.model = scope.model || scope.initval;
-        scope.decimalSep = attrs.decimalSep || '.';
+        var localeDecimalSeparator;
+        if($locale.NUMBER_FORMATS.DECIMAL_SEP === undefined){
+            //Be prepared for the case that variable name changes, this is not a public api
+            localeDecimalSeparator = '.';
+        }
+        else{
+            localeDecimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
+        }
+        scope.decimalSep = attrs.decimalSep || localeDecimalSeparator;
         if (attrs.withKey === "false") {
             scope.withKey = false;
         } else {
