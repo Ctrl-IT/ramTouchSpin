@@ -17,7 +17,7 @@ or alternatively:
 <ram-touch-spin type="text" model="yourScopeVariable" ></ram-touch-spin>
 ```
 
-Example usage can also be found in the [demo file](https://github.com/sjoerd222888/ramTouchSpin/demo/demo.html).
+Example usage can also be found in the [demo file](https://github.com/sjoerd222888/ramTouchSpin/blob/master/demo/demo.html).
 
 Various options are available  as described  in the following table:
 
