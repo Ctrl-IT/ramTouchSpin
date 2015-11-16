@@ -112,43 +112,43 @@ angular.module('ram.touchspin', [])
                 scope.model = toFloat(value);
             };
 
-            scope.startSpinUp = function () {
-                scope.increment();
+           scope.startSpinUp = function () {
+				scope.increment();
 
-                clickStart = Date.now();
+				clickStart = Date.now();
+				scope.stopSpin();
+
+				$timeout(function() {
+					timer = $interval(function() {
+						scope.increment();
+					}, scope.stepInterval);
+				}, scope.stepIntervalDelay);
+			};
+
+			scope.startSpinDown = function () {
+				scope.decrement();
+
+				clickStart = Date.now();
                 scope.stopSpin();
 
-                $timeout(function () {
-                    timer = $interval(function () {
-                        scope.increment();
-                    }, scope.stepInterval);
-                }, scope.stepIntervalDelay);
-            };
+				var timeout = $timeout(function() {
+					timer = $interval(function() {
+						scope.decrement();
+					}, scope.stepInterval);
+				}, scope.stepIntervalDelay);
+			};
 
-            scope.startSpinDown = function () {
-                scope.decrement();
-
-                clickStart = Date.now();
-                scope.stopSpin();
-
-                timeout = $timeout(function () {
-                    timer = $interval(function () {
-                        scope.decrement();
-                    }, scope.stepInterval);
-                }, scope.stepIntervalDelay);
-            };
-
-            scope.stopSpin = function () {
-                if (Date.now() - clickStart > scope.stepIntervalDelay) {
-                    $timeout.cancel(timeout);
-                    $interval.cancel(timer);
-                } else {
-                    $timeout(function () {
-                        $timeout.cancel(timeout);
-                        $interval.cancel(timer);
-                    }, scope.stepIntervalDelay);
-                }
-            };
+			scope.stopSpin = function () {
+				if (Date.now() - clickStart > scope.stepIntervalDelay) {
+					$timeout.cancel(timeout);
+					$interval.cancel(timer);
+				} else {
+					$timeout(function() {
+						$timeout.cancel(timeout);
+						$interval.cancel(timer);
+					}, scope.stepIntervalDelay);
+				}
+			};
 
             scope.focus = function () {
                 scope.focused = true;
