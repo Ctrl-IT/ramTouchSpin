@@ -19,7 +19,7 @@ angular.module('ram.touchspin', [])
         scope.decimals = attrs.decimals || 0;
         scope.stepInterval = attrs.stepInterval || 100;
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
-        scope.initval = attrs.initval || '';
+        scope.initval = attrs.initval || 0;
         scope.model = scope.model || scope.initval;
         var localeDecimalSeparator;
         if($locale.NUMBER_FORMATS.DECIMAL_SEP === undefined){
