@@ -27,9 +27,9 @@ angular.module('ram.touchspin', [])
         scope.decimals = attrs.decimals || 0;
         scope.stepInterval = attrs.stepInterval || 100;
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
-        scope.initval = attrs.initval || 0;
-        scope.model = scope.model || scope.initval;
         scope.emptyStringNull = attrs.nullable || false;
+        scope.initval = attrs.initval || (scope.emptyStringNull ? null : 0);
+        scope.model = scope.model !== undefined ? scope.model : scope.initval;
         var localeDecimalSeparator;
         if($locale.NUMBER_FORMATS.DECIMAL_SEP === undefined){
             //Be prepared for the case that variable name changes, this is not a public api
