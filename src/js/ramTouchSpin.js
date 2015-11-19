@@ -11,8 +11,16 @@ angular.module('ram.touchspin', [])
     };
 
     var setScopeValues = function (scope, attrs) {
-        scope.min = parseFloat(Number(attrs.min)) || undefined;
-        scope.max = parseFloat(Number(attrs.max)) || undefined;
+        if(attrs.min !== undefined){
+            scope.min = parseFloat(Number(attrs.min));    
+        }else{
+            scope.min = undefined;
+        }
+        if(attrs.max !== undefined){
+            scope.max = parseFloat(Number(attrs.max));    
+        }else{
+            scope.max = undefined;
+        }
         scope.step = attrs.step || 1;
         scope.prefix = attrs.prefix || undefined;
         scope.postfix = attrs.postfix || undefined;
