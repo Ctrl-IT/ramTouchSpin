@@ -133,9 +133,8 @@ angular.module('ram.touchspin', [])
 				scope.increment();
 
 				clickStart = Date.now();
-				scope.stopSpin();
 
-				$timeout(function() {
+				timeout = $timeout(function() {
 					timer = $interval(function() {
 						scope.increment();
 					}, scope.stepInterval);
@@ -146,9 +145,8 @@ angular.module('ram.touchspin', [])
 				scope.decrement();
 
 				clickStart = Date.now();
-                scope.stopSpin();
 
-				var timeout = $timeout(function() {
+				timeout = $timeout(function() {
 					timer = $interval(function() {
 						scope.decrement();
 					}, scope.stepInterval);
@@ -156,15 +154,8 @@ angular.module('ram.touchspin', [])
 			};
 
 			scope.stopSpin = function () {
-				if (Date.now() - clickStart > scope.stepIntervalDelay) {
-					$timeout.cancel(timeout);
-					$interval.cancel(timer);
-				} else {
-					$timeout(function() {
-						$timeout.cancel(timeout);
-						$interval.cancel(timer);
-					}, scope.stepIntervalDelay);
-				}
+                $timeout.cancel(timeout);
+                $interval.cancel(timer);
 			};
 
             scope.focus = function () {
