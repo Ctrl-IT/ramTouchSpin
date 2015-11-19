@@ -91,6 +91,9 @@ angular.module('ram.touchspin', [])
 
             scope.$watch('model', function (newVal, oldVal) {
                 if (newVal === oldVal) return;
+                if(newVal === 0 && scope.val===""){
+                    return;
+                }
                 scope.val = toString(newVal, scope.decimalSep);
             }, false);
 
