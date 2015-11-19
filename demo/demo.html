@@ -33,6 +33,10 @@
         <input type="text" model="testObjectDelayValue.testValue" vertical="false" ram-touch-spin>
         <span>testObjectDelayValue.testValue: {{testObjectDelayValue.testValue}}</span>
         
+        <h2>Min and Max</h2>
+        <input type="text" model="minMaxTestValue" min="-1" max="20" ram-touch-spin>
+        <span>testObjectDelayValue.testValue: {{minMaxTestValue}}</span>
+        
     </div>
 	<script>
       
@@ -53,7 +57,7 @@
                 $scope.$apply();
             },3000);
             
-            
+            $scope.minMaxTestValue = 3;
             
             $scope.setTypeDirect = function(){
                 $scope.varSimpleType = toType($scope.testValue)

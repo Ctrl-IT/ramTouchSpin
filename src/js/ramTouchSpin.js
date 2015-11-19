@@ -92,7 +92,20 @@ angular.module('ram.touchspin', [])
 
             scope.updateValue = function () {
                 if (scope.val !== undefined) {
-                    scope.model = toFloat(scope.val, scope.decimalSep);
+                    var value = toFloat(scope.val, scope.decimalSep);
+                    var adjustVal = false
+                    if (scope.max != undefined && value > scope.max){
+                         value = scope.max; 
+                         adjustVal = true;
+                    }
+                    else if (scope.min != undefined && value < scope.min) {
+                        value = scope.min;
+                        adjustVal = true;
+                    }
+                    if(adjustVal){
+                        scope.val = toString(value,  scope.decimalSep);
+                    }
+                    scope.model = value;
                 }
             }
 
@@ -104,7 +117,7 @@ angular.module('ram.touchspin', [])
 
             scope.decrement = function () {
                 var value = parseFloat(parseFloat(Number(scope.model)) - parseFloat(scope.step)).toFixed(scope.decimals);
-                if (scope.max != undefined && value < scope.min) {
+                if (scope.min != undefined && value < scope.min) {
                     value = parseFloat(scope.min).toFixed(scope.decimals);
                     scope.model = toFloat(value);
                     return;
