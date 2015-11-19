@@ -21,6 +21,7 @@ angular.module('ram.touchspin', [])
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
         scope.initval = attrs.initval || 0;
         scope.model = scope.model || scope.initval;
+        scope.emptyStringNull = attrs.nullable || false;
         var localeDecimalSeparator;
         if($locale.NUMBER_FORMATS.DECIMAL_SEP === undefined){
             //Be prepared for the case that variable name changes, this is not a public api
@@ -50,9 +51,12 @@ angular.module('ram.touchspin', [])
         }
     };
 
-    var toFloat = function (value, decimalSep) {
-        if (decimalSep !== "." && (typeof value === "string" || value instanceof String)) {
-            value = value.replace(decimalSep, ".");
+    var toFloat = function (value, scope) {
+        if(value === "" && scope.emptyStringNull){
+            return null;
+        }
+        if (scope.decimalSep !== "." && (typeof value === "string" || value instanceof String)) {
+            value = value.replace(scope.decimalSep, ".");
         }
         value = parseFloat(Number(value));
         return value;
@@ -92,7 +96,7 @@ angular.module('ram.touchspin', [])
 
             scope.updateValue = function () {
                 if (scope.val !== undefined) {
-                    var value = toFloat(scope.val, scope.decimalSep);
+                    var value = toFloat(scope.val, scope);
                     var adjustVal = false
                     if (scope.max != undefined && value > scope.max){
                          value = scope.max; 
@@ -112,17 +116,17 @@ angular.module('ram.touchspin', [])
             scope.increment = function () {
                 var value = parseFloat(parseFloat(Number(scope.model)) + parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.max != undefined && value > scope.max) return;
-                scope.model = toFloat(value);
+                scope.model = toFloat(value, scope);
             };
 
             scope.decrement = function () {
                 var value = parseFloat(parseFloat(Number(scope.model)) - parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.min != undefined && value < scope.min) {
                     value = parseFloat(scope.min).toFixed(scope.decimals);
-                    scope.model = toFloat(value);
+                    scope.model = toFloat(value, scope);
                     return;
                 }
-                scope.model = toFloat(value);
+                scope.model = toFloat(value, scope);
             };
 
            scope.startSpinUp = function () {

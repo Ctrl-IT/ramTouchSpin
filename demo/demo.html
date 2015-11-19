@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RamTouchSpin - Demo</title>
+    <title>ram.touchSpin - Demo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
@@ -11,7 +11,7 @@
 <body>
     <div id="example" ng-app="test" ng-controller="TestController">
     
-        <h1>ramTouchSpin - Demo</h1>
+        <h1>ram.touchSpin - Demo</h1>
     
         <h2>Value on object</h2>
         <input type="text" model="testObject.testValue" vertical="true" ram-touch-spin>
@@ -37,6 +37,12 @@
         <input type="text" model="minMaxTestValue" min="-1" max="20" ram-touch-spin>
         <span>testObjectDelayValue.testValue: {{minMaxTestValue}}</span>
         
+         <h2>Nullable</h2>
+        <input type="text" model="nullableTestValue" nullable="true" ram-touch-spin>
+        <span>testObjectDelayValue.testValue: {{nullableTestValue}}</span><br/>
+        <span ng-show="nullableTestValue===null">the value is null</span>
+        <span ng-show="nullableTestValue!==null">the value is not null</span>
+        
     </div>
 	<script>
       
@@ -58,6 +64,8 @@
             },3000);
             
             $scope.minMaxTestValue = 3;
+            
+            $scope.nullableTestValue = 2;
             
             $scope.setTypeDirect = function(){
                 $scope.varSimpleType = toType($scope.testValue)

@@ -35,4 +35,5 @@ Various options are available  as described  in the following table:
 | prefix              | ''                   | Text before the input.                                                                                                                          |
 | postfix             | ''                   | Text after the input.                                                                                                                           |
 | decimal-sep         | (value from $locale) | Decimal separation character                                                                                                                    |
-| with-key            | true                 | Use up and down arrow key to increase  or decrease the number                                                                                   |
+| with-key            | true                 | Use up and down arrow key to increase  or decrease the number.                                                                                  |
+| nullable            | false                | If true an empty text field will set the model value to null, if false it will be set to zero in that case.                                     |
