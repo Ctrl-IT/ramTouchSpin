@@ -27,7 +27,7 @@ angular.module('ram.touchspin', [])
         scope.decimals = attrs.decimals || 0;
         scope.stepInterval = attrs.stepInterval || 100;
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
-        scope.emptyStringNull = attrs.nullable || false;
+        scope.emptyStringNull = attrs.nullable || false; //used in toFloat TODO: improve
         scope.initval = attrs.initval || (scope.emptyStringNull ? null : 0);
 		//TODO: hanlde initial value
         //scope.model = scope.model !== undefined ? scope.model : scope.initval;
@@ -86,9 +86,12 @@ angular.module('ram.touchspin', [])
     return {
         restrict: 'EA',
         scope: true,
-		require: 'ngModel',
+		require: '?ngModel',
         replace: true,
         link: function (scope, element, attrs, ngModelCtrl) {
+			if(!ngModelCtrl){
+				throw Error("Missing ng-model attribute on ram-touch-spin element");
+			}
             var timeout, timer, clickStart;
             scope.focused = false;
 
@@ -105,10 +108,22 @@ angular.module('ram.touchspin', [])
 				scope.val = toString( ngModelCtrl.$modelValue, scope.decimalSep);
 			};
 			
+			
 			var updateNgModelValue = function(val){
 				ngModelCtrl.$setViewValue(val);
-				orignalRender();
+				orignalRender();	
 			}
+			
+			//handle nullable by adding a ngModelController parser
+			if(attrs.nullable){
+				ngModelCtrl.$parsers.push(function(viewValue) {
+					if(viewValue === "") {
+						return null;
+					}
+					return viewValue;
+				});	
+			}
+			
 
             scope.updateValue = function () {
                 if (scope.val !== undefined) {
