@@ -96,6 +96,7 @@ angular.module('ram.touchspin', [])
             scope.focused = false;
 
             setScopeValues(scope, attrs);
+			
 
 			//Move the name attribute
 			var divElem = angular.element(element);
@@ -103,7 +104,6 @@ angular.module('ram.touchspin', [])
 			angular.element(divElem[0].querySelector('input')).attr('name', name);
 			
 			var orignalRender = ngModelCtrl.$render;
-			
 			ngModelCtrl.$render = function () {
 				scope.val = toString( ngModelCtrl.$modelValue, scope.decimalSep);
 			};
@@ -127,7 +127,8 @@ angular.module('ram.touchspin', [])
 
             scope.updateValue = function () {
                 if (scope.val !== undefined) {
-					//check regex first
+					//check regex first 
+					//TODO: move regex away from scope object
 					if(scope.val === "" || scope.regex.test(scope.val)){
 						ngModelCtrl.$setValidity('invalid', true);
 					}else{
