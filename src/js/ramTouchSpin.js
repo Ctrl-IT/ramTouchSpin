@@ -113,13 +113,14 @@ angular.module('ram.touchspin', [])
             scope.updateValue = function () {
                 if (scope.val !== undefined) {
 					//check regex first
-					if(scope.regex.test(scope.val)){
+					if(scope.val === "" || scope.regex.test(scope.val)){
 						ngModelCtrl.$setValidity('invalid', true);
 					}else{
 						ngModelCtrl.$setValidity('invalid', false);
+						orignalRender();
 						return;
 					}
-					
+					//parse and update
                     var value = toFloat(scope.val, scope);
                     var adjustVal = false
                     if (scope.max != undefined && value > scope.max){
