@@ -23,7 +23,7 @@ Various options are available  as described  in the following table:
 
 | Attribute           | Default              | Description |
 |:------------------- |:--------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------- |
-| model               | undefined            | The scope variable to be displayed. This attribute is required!                                                                                 |
+| ng-model            | undefined            | The scope variable to be displayed. This attribute is required otherwise an error is thrown                                                     |
 | vertical            | true                 | If true show up and down buttons on the right hand side of the input or show plus (+) and (-) buttons on the right and left side otherwise      |
 | step                | 1                    | Incremental/decremental step on up/down.                                                                                                        |
 | initval             | undefined            | If the scope variable already exists this option is ignored otherwise the value is used to initially  set the scope variable.                   |
