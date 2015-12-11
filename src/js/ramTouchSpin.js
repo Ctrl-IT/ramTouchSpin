@@ -29,7 +29,8 @@ angular.module('ram.touchspin', [])
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
         scope.emptyStringNull = attrs.nullable || false;
         scope.initval = attrs.initval || (scope.emptyStringNull ? null : 0);
-        scope.model = scope.model !== undefined ? scope.model : scope.initval;
+		//TODO: hanlde initial value
+        //scope.model = scope.model !== undefined ? scope.model : scope.initval;
         var localeDecimalSeparator;
         if($locale.NUMBER_FORMATS.DECIMAL_SEP === undefined){
             //Be prepared for the case that variable name changes, this is not a public api
@@ -84,29 +85,41 @@ angular.module('ram.touchspin', [])
 
     return {
         restrict: 'EA',
-        scope: {
-            model: "="
-        },
+        scope: true,
+		require: 'ngModel',
         replace: true,
-        link: function (scope, element, attrs) {
+        link: function (scope, element, attrs, ngModelCtrl) {
             var timeout, timer, clickStart;
             scope.focused = false;
 
             setScopeValues(scope, attrs);
 
-            //val is our copy in string representation
-            scope.val = toString(scope.model, scope.decimalSep);
-
-            scope.$watch('model', function (newVal, oldVal) {
-                if (newVal === oldVal) return;
-                if(newVal === 0 && scope.val===""){
-                    return;
-                }
-                scope.val = toString(newVal, scope.decimalSep);
-            }, false);
+			//Move the name attribute
+			var divElem = angular.element(element);
+			divElem.removeAttr('name');
+			angular.element(divElem[0].querySelector('input')).attr('name', name);
+			
+			var orignalRender = ngModelCtrl.$render;
+			
+			ngModelCtrl.$render = function () {
+				scope.val = toString( ngModelCtrl.$modelValue, scope.decimalSep);
+			};
+			
+			var updateNgModelValue = function(val){
+				ngModelCtrl.$setViewValue(val);
+				orignalRender();
+			}
 
             scope.updateValue = function () {
                 if (scope.val !== undefined) {
+					//check regex first
+					if(scope.regex.test(scope.val)){
+						ngModelCtrl.$setValidity('invalid', true);
+					}else{
+						ngModelCtrl.$setValidity('invalid', false);
+						return;
+					}
+					
                     var value = toFloat(scope.val, scope);
                     var adjustVal = false
                     if (scope.max != undefined && value > scope.max){
@@ -120,24 +133,27 @@ angular.module('ram.touchspin', [])
                     if(adjustVal){
                         scope.val = toString(value,  scope.decimalSep);
                     }
-                    scope.model = value;
+					updateNgModelValue(value);
                 }
             }
+			
 
             scope.increment = function () {
-                var value = parseFloat(parseFloat(Number(scope.model)) + parseFloat(scope.step)).toFixed(scope.decimals);
+                var value = parseFloat(parseFloat(Number(ngModelCtrl.$modelValue)) + parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.max != undefined && value > scope.max) return;
-                scope.model = toFloat(value, scope);
+				updateNgModelValue( toFloat(value, scope));
+				ngModelCtrl.$render();
             };
 
             scope.decrement = function () {
-                var value = parseFloat(parseFloat(Number(scope.model)) - parseFloat(scope.step)).toFixed(scope.decimals);
+                var value = parseFloat(parseFloat(Number(ngModelCtrl.$modelValue)) - parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.min != undefined && value < scope.min) {
                     value = parseFloat(scope.min).toFixed(scope.decimals);
-                    scope.model = toFloat(value, scope);
+					updateNgModelValue( toFloat(value, scope));
                     return;
                 }
-                scope.model = toFloat(value, scope);
+                updateNgModelValue( toFloat(value, scope));
+				ngModelCtrl.$render();
             };
 
            scope.startSpinUp = function () {
@@ -202,7 +218,7 @@ angular.module('ram.touchspin', [])
 		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()"><i class="fa fa-minus"></i></button>' +
 		'  </span>' +
 		'  <span class="input-group-addon bootstrap-touchspin-prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-		'  <input type="text" ng-model="val" ng-pattern="regex" class="form-control" ng-change="updateValue()" ng-blur="blur()" ng-focus="focus()">' +
+		'  <input type="text" ng-model="val" class="form-control" ng-change="updateValue()" ng-blur="blur()" ng-focus="focus()">' +
 		'  <span class="input-group-addon bootstrap-touchspin-postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '  <span class="input-group-btn" ng-if="!verticalButtons">' +
 		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()"><i class="fa fa-plus"></i></button>' +

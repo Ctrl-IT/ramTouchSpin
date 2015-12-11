@@ -14,9 +14,10 @@
         <h1>ram.touchSpin - validation demo</h1>
     
 		<form name="demoForm">		
-			<input name="testInput" type="text" model="model.testValue" vertical="false" decimal-sep="." ram-touch-spin step="0.1" decimals="2">
+			<input name="testInputDirective" type="text" ng-model="model.testValue" vertical="false" decimal-sep="." ram-touch-spin step="0.1" decimals="2">
 			<span>testValue: {{model.testValue}}</span>
-			<span class="error" ng-show="demoForm.testInput.$invalid">Invalid input</span>
+			<br>
+			<span class="error" ng-show="demoForm.testInputDirective.$invalid">Invalid input</span>
 		</form>	
 		
 		
