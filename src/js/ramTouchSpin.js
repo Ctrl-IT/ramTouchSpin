@@ -27,13 +27,11 @@ angular.module('ram.touchspin', [])
         scope.decimals = attrs.decimals || 0;
         scope.stepInterval = attrs.stepInterval || 100;
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
-        scope.emptyStringNull = attrs.nullable || false; //used in toFloat TODO: improve
-        scope.initval = attrs.initval || (scope.emptyStringNull ? null : 0);
-		//TODO: hanlde initial value
-        //scope.model = scope.model !== undefined ? scope.model : scope.initval;
+        scope.emptyStringNull = attrs.nullable || false; //used in toFloat as well, TODO: improve
         var localeDecimalSeparator;
         if($locale.NUMBER_FORMATS.DECIMAL_SEP === undefined){
             //Be prepared for the case that variable name changes, this is not a public api
+			//TODO: make sure this is in the public api (feature request: https://github.com/angular/angular.js/issues/13289)
             localeDecimalSeparator = '.';
         }
         else{
@@ -96,13 +94,7 @@ angular.module('ram.touchspin', [])
             scope.focused = false;
 
             setScopeValues(scope, attrs);
-			
-
-			//Move the name attribute
-			var divElem = angular.element(element);
-			divElem.removeAttr('name');
-			angular.element(divElem[0].querySelector('input')).attr('name', name);
-			
+						
 			var orignalRender = ngModelCtrl.$render;
 			ngModelCtrl.$render = function () {
 				scope.val = toString( ngModelCtrl.$modelValue, scope.decimalSep);
@@ -114,6 +106,15 @@ angular.module('ram.touchspin', [])
 				orignalRender();	
 			}
 			
+			//ngModel default value is NaN
+			if(isNaN(ngModelCtrl.$modelValue)){
+				var initval = attrs.initval || (scope.emptyStringNull ? null : 0);
+				if( attrs.initval){
+					updateNgModelValue(initval);	
+				}
+				scope.val = initval;
+			}
+			
 			//handle nullable by adding a ngModelController parser
 			if(attrs.nullable){
 				ngModelCtrl.$parsers.push(function(viewValue) {
@@ -123,7 +124,6 @@ angular.module('ram.touchspin', [])
 					return viewValue;
 				});	
 			}
-			
 
             scope.updateValue = function () {
                 if (scope.val !== undefined) {

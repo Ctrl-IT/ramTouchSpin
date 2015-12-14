@@ -12,15 +12,18 @@
     <div id="example" ng-app="test" ng-controller="TestController">
     
         <h1>ram.touchSpin - Demo</h1>
-    
+
+		
         <h2>Simple example.</h2>
         <input type="text" ng-model="model.value" vertical="true" ram-touch-spin>
         <span>model.value: {{model.value}}</span>
         
+		
         <h2>Custom decimal separator</h2>
         <p>Value directly on scope with custom decimal separator (# symbol).</p>
         <input type="text" ng-model="model.value" vertical="false" decimal-sep="#" ram-touch-spin step="0.1" decimals="2">
         <span>model.value: {{model.value}}</span>
+		
 		
 		<h2>Validation</h2>
 		<p>This examples shows validation. If the input is not correct (with respect to the used decimal separator) the input well be invalid.</p>
@@ -35,10 +38,12 @@
         <input type="text" ng-model="model.minMaxValue" min="0" max="20" ram-touch-spin>
         <span>model.minMaxValue: {{model.minMaxValue}}</span>
 		
-		<!--<h2>Init</h2>
-        <input type="text" ng-model="model.newValue" init-val="14" ram-touch-spin>
-        <span>model.minMaxValue: {{model.newValue}}</span>-->
+		
+		<h2>Init</h2>
+        <input type="text" ng-model="model.newValue" initval="14" ram-touch-spin>
+        <span>model.newValue: {{model.newValue}}</span>
         
+
         <h2>Nullable</h2>
 		<p>If the nullable attribute is set to true empty string will set the model value to null. Otherwise it will be set to zero.</p>
 		<pre><span ng-bind="nullableExample"></span></pre>
@@ -46,10 +51,8 @@
         <span>model.nullableValue: {{model.nullableValue}}</span><br/>
         <span ng-show="model.nullableValue==null">the value is null</span>
         <span ng-show="model.nullableValue!=null">the value is not null</span>
-		<br>{{model}}
 		
-		
-        
+	
     </div>
 	<script>
       
@@ -57,24 +60,12 @@
 			$scope.model = {
                 value : 2,
 				minMaxValue : 3,
-				nullableValue : null,
+				nullableValue : null
             };
 			
+			//$scope.initExample = '<input type="text" ng-model="model.newValue" initval="14" ram-touch-spin>';
 			$scope.nullableExample = '<input type="text" ng-model="model.nullableValue" nullable="true" ram-touch-spin>';
 			
-            /*setTimeout(function(){
-                var myObj = {
-                    testValue : 11
-                };
-                $scope.testObjectDelayValue = myObj;
-                $scope.$apply();
-            },3000);*/
-            
-        
-            
-            /*var toType = function(obj) {
-                return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-            }*/
         })
        
 	</script>

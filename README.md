@@ -26,7 +26,7 @@ Various options are available  as described  in the following table:
 | ng-model            | undefined            | The scope variable to be displayed. This attribute is required otherwise an error is thrown                                                     |
 | vertical            | true                 | If true show up and down buttons on the right hand side of the input or show plus (+) and (-) buttons on the right and left side otherwise      |
 | step                | 1                    | Incremental/decremental step on up/down.                                                                                                        |
-| initval             | undefined            | If the scope variable already exists this option is ignored otherwise the value is used to initially  set the scope variable.                   |
+| initval             | undefined            | This option overwrites the scope value if it exists. The inital value will be '' if nullable is false and null otherwise.                       |
 | min                 | undefined            | Minimum value.                                                                                                                                  |
 | max                 | undefined            | Maximum value.                                                                                                                                  |
 | decimals            | 0                    | Number of decimal points.                                                                                                                       |
