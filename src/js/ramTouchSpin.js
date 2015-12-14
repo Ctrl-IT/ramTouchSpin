@@ -109,7 +109,8 @@ angular.module('ram.touchspin', [])
 					throw new Error("value was of string type!");
 				}
 				ngModelCtrl.$setViewValue(val);
-				orignalRender();	
+				orignalRender();
+				ngModelCtrl.$setValidity('invalid', true);
 			}
 			
 			//ngModel default value is NaN
@@ -144,7 +145,7 @@ angular.module('ram.touchspin', [])
 					//check regex first 
 					//TODO: move regex away from scope object
 					if(scope.val === "" || scope.regex.test(scope.val)){
-						ngModelCtrl.$setValidity('invalid', true);
+						
 					}else{
 						ngModelCtrl.$setValidity('invalid', false);
 						orignalRender();
