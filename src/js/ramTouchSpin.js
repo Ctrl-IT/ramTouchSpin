@@ -97,20 +97,26 @@ angular.module('ram.touchspin', [])
 						
 			var orignalRender = ngModelCtrl.$render;
 			ngModelCtrl.$render = function () {
-				scope.val = toString( ngModelCtrl.$modelValue, scope.decimalSep);
+				scope.val = toString( ngModelCtrl.$viewValue, scope.decimalSep);
 			};
 			
 			
-			var updateNgModelValue = function(val){
+			//TODO: make sure timers are deleted when element is destroyed
+			
+			var updateNgviewValue = function(val){
+				//consistency check, we should not have a string type value here
+				if(typeof value === "string"){
+					throw new Error("value was of string type!");
+				}
 				ngModelCtrl.$setViewValue(val);
 				orignalRender();	
 			}
 			
 			//ngModel default value is NaN
-			if(isNaN(ngModelCtrl.$modelValue)){
+			if(isNaN(ngModelCtrl.$viewValue)){
 				var initval = attrs.initval || (scope.emptyStringNull ? null : 0);
 				if( attrs.initval){
-					updateNgModelValue(initval);	
+					updateNgviewValue( toFloat(initval, scope));	
 				}
 				scope.val = initval;
 			}
@@ -124,6 +130,14 @@ angular.module('ram.touchspin', [])
 					return viewValue;
 				});	
 			}
+			
+			//This additional parser is a fix for old browsers (Chrome 18) where we have a string value for a strange reason.
+			ngModelCtrl.$parsers.push(function(viewValue) {
+				if(typeof viewValue === "string"){
+					return toFloat(viewValue, scope);
+				}
+				return viewValue;
+			});
 
             scope.updateValue = function () {
                 if (scope.val !== undefined) {
@@ -150,26 +164,26 @@ angular.module('ram.touchspin', [])
                     if(adjustVal){
                         scope.val = toString(value,  scope.decimalSep);
                     }
-					updateNgModelValue(value);
+					updateNgviewValue(value);
                 }
             }
 			
 
             scope.increment = function () {
-                var value = parseFloat(parseFloat(Number(ngModelCtrl.$modelValue)) + parseFloat(scope.step)).toFixed(scope.decimals);
+                var value = parseFloat(parseFloat(Number(ngModelCtrl.$viewValue)) + parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.max != undefined && value > scope.max) return;
-				updateNgModelValue( toFloat(value, scope));
+				updateNgviewValue( toFloat(value, scope));
 				ngModelCtrl.$render();
             };
 
             scope.decrement = function () {
-                var value = parseFloat(parseFloat(Number(ngModelCtrl.$modelValue)) - parseFloat(scope.step)).toFixed(scope.decimals);
+                var value = parseFloat(parseFloat(Number(ngModelCtrl.$viewValue)) - parseFloat(scope.step)).toFixed(scope.decimals);
                 if (scope.min != undefined && value < scope.min) {
                     value = parseFloat(scope.min).toFixed(scope.decimals);
-					updateNgModelValue( toFloat(value, scope));
+					updateNgviewValue( toFloat(value, scope));
                     return;
                 }
-                updateNgModelValue( toFloat(value, scope));
+                updateNgviewValue( toFloat(value, scope));
 				ngModelCtrl.$render();
             };
 

@@ -4,7 +4,7 @@
     <title>ram.touchSpin - Demo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
     <script src="../src/js/ramTouchSpin.js"></script>
     <link rel="stylesheet" href="../src/css/ramTouchSpin.css"">
 </head>
@@ -22,12 +22,14 @@
         <h2>Custom decimal separator</h2>
         <p>Value directly on scope with custom decimal separator (# symbol).</p>
         <input type="text" ng-model="model.value" vertical="false" decimal-sep="#" ram-touch-spin step="0.1" decimals="2">
-        <span>model.value: {{model.value}}</span>
+        <span>model.value: {{model.value}}</span><br>
+		<span ng-if="modelValueType==='number'">Type is number</span>
+		<span ng-if="modelValueType==='string'">Type is string</span>
 		
 		
 		<h2>Validation</h2>
 		<p>This examples shows validation. If the input is not correct (with respect to the used decimal separator) the input well be invalid.</p>
-		<form name="demoForm">		
+		<form name="demoForm" novalidate>		
 			<input name="testInputDirective" type="text" ng-model="model.value" vertical="false" decimal-sep="." ram-touch-spin>
 			<br>
 			<span class="error" style="color:red;" ng-show="demoForm.testInputDirective.$invalid">invalid input!</span>
@@ -62,6 +64,11 @@
 				minMaxValue : 3,
 				nullableValue : null
             };
+			
+			$scope.modelValueType = typeof $scope.model.value;
+			$scope.$watch('value', function(newValue, oldValue){
+				$scope.modelValueType = typeof $scope.model.value;
+			});
 			
 			//$scope.initExample = '<input type="text" ng-model="model.newValue" initval="14" ram-touch-spin>';
 			$scope.nullableExample = '<input type="text" ng-model="model.nullableValue" nullable="true" ram-touch-spin>';
