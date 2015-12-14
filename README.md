@@ -3,18 +3,18 @@
 AngularJS implementation of [Bootstrap TouchSpin](https://github.com/istvan-ujjmeszaros/bootstrap-touchspin).
 
 This project started as a fork of [jkuri.ngTouchSpin](https://github.com/jkuri/ngTouchSpin). It has been heavily modified and also renamed in order to follow the angular naming conventions.
-The scope variable will be of type Number even though a decimal separation character can be specified.
+The scope variable will be of type Number even though a decimal separation character can be specified. The directive uses the ng-model directive.
 
 Usage:
 
 ```html
-<input type="text" model="yourScopeVariable" ram-touch-spin>
+<input type="text" ng-model="yourScopeVariable" ram-touch-spin>
 ```
 
 or alternatively:
 
 ```html
-<ram-touch-spin type="text" model="yourScopeVariable" ></ram-touch-spin>
+<ram-touch-spin type="text" ng-model="yourScopeVariable" ></ram-touch-spin>
 ```
 
 Example usage can also be found in the [demo file](https://github.com/sjoerd222888/ramTouchSpin/blob/master/demo/demo.html).
