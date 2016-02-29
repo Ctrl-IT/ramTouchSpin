@@ -1,6 +1,6 @@
 angular.module('ram.touchspin', [])
 
-.directive('ramTouchSpin', ['$timeout', '$interval', '$document', '$locale', function ($timeout, $interval, $document, $locale) {
+.directive('ramTouchSpin', ['$timeout', '$interval', '$document', '$locale', '$parse', function ($timeout, $interval, $document, $locale, $parse) {
     'use strict';
 
     var keyCodes = {
@@ -96,10 +96,15 @@ angular.module('ram.touchspin', [])
             setScopeValues(scope, attrs);
 						
 			var orignalRender = ngModelCtrl.$render;
+			
+			var input = element.find('input');
+			 
+			var modelSetter = $parse(attrs['ngModel']).assign;
+			 
 			ngModelCtrl.$render = function () {
 				scope.val = toString( ngModelCtrl.$viewValue, scope.decimalSep);
+				ngModelCtrl.$modelValue = ngModelCtrl.$viewValue;
 			};
-			
 			
 			//TODO: make sure timers are deleted when element is destroyed
 			
@@ -111,6 +116,7 @@ angular.module('ram.touchspin', [])
 				ngModelCtrl.$setViewValue(val);
 				orignalRender();
 				ngModelCtrl.$setValidity('invalid', true);
+				modelSetter(scope.$parent, ngModelCtrl.$viewValue);
 			}
 			
 			//ngModel default value is NaN

@@ -14,7 +14,7 @@
         <h1>ram.touchSpin - Demo</h1>
 
 		
-        <h2>Simple example.</h2>
+        <h2>Simple example</h2>
         <input type="text" ng-model="model.value" vertical="true" ram-touch-spin>
         <span>model.value: {{model.value}}</span>
         
@@ -54,6 +54,10 @@
         <span ng-show="model.nullableValue==null">the value is null</span>
         <span ng-show="model.nullableValue!=null">the value is not null</span>
 		
+		<h2>Value directly on scope</h2>
+        <input type="text" ng-model="directValue"ram-touch-spin>
+        <span>directValue: {{directValue}}</span>
+		
 	
     </div>
 	<script>
@@ -64,6 +68,8 @@
 				minMaxValue : 3,
 				nullableValue : null
             };
+			
+			$scope.directValue = 12;
 			
 			$scope.modelValueType = typeof $scope.model.value;
 			$scope.$watch('value', function(newValue, oldValue){
