@@ -65,10 +65,12 @@
 			<span>directValue: {{directValue}}</span>
 			
 			<h2>Disable/Enable</h2>
-			<input type="checkbox" ng-model="enabledTestValue">
-			<input type="text" ng-model="directValue"ram-touch-spin enabled="enabledTestValue">
+			<input type="checkbox" ng-model="enabled"><span>enabled: {{enabled}}</span>
+			<pre><span ng-bind="disableExample1"></span></pre>
+			<input type="text" ng-model="directValue"ram-touch-spin ng-disabled="!enabled">
 			<br/>
-			<input type="text" vertical="false" ng-model="directValue"ram-touch-spin enabled="enabledTestValue">
+			<pre><span ng-bind="disableExample2"></span></pre>
+			<input type="text" vertical="false" ng-model="directValue"ram-touch-spin ng-disabled="!enabled">
 			<span>directValue: {{directValue}}</span>
 		</div>
 	
@@ -93,8 +95,10 @@
 			
 			//$scope.initExample = '<input type="text" ng-model="model.newValue" initval="14" ram-touch-spin>';
 			$scope.nullableExample = '<input type="text" ng-model="model.nullableValue" nullable="true" ram-touch-spin>';
+			$scope.disableExample1 = '<input type="text" ng-model="directValue"ram-touch-spin ng-disabled="!enabled">';
+			$scope.disableExample2 = '<input type="text" vertical="false" ng-model="directValue"ram-touch-spin ng-disabled="!enabled">';
 			
-			$scope.enabledTestValue = false
+			$scope.enabled = false
 			
         })
        

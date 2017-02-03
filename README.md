@@ -37,4 +37,4 @@ Various options are available  as described  in the following table:
 | decimal-sep         | (value from $locale) | Decimal separation character                                                                                                                    |
 | with-key            | true                 | Use up and down arrow key to increase  or decrease the number.                                                                                  |
 | nullable            | false                | If true an empty text field will set the model value to null, if false it will be set to zero in that case.                                     |
-| enabled             | true                 | Expression whether or not the touch-spin control should be enabled.                                                                             |
+| ng-disabled         | false                | Expression whether or not the touch-spin control should be disabled.                                                                            |
