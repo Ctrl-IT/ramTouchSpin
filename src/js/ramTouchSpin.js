@@ -84,7 +84,7 @@ angular.module('ram.touchspin', [])
     return {
         restrict: 'EA',
         scope: {
-			disabled:'=ngDisabled'
+			disabled:'=?ngDisabled'
 		},
 		require: '?ngModel',
         replace: true,
