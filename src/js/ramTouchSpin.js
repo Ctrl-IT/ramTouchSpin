@@ -99,6 +99,7 @@ angular.module('ram.touchspin', [])
 				scope.disabled = false;
 			}
 			
+			scope.valid = true;
 
             setScopeValues(scope, attrs);
 						
@@ -123,6 +124,7 @@ angular.module('ram.touchspin', [])
 				ngModelCtrl.$setViewValue(val);
 				orignalRender();
 				ngModelCtrl.$setValidity('invalid', true);
+				scope.valid = true;
 				modelSetter(scope.$parent, ngModelCtrl.$viewValue);
 			}
 			
@@ -161,6 +163,7 @@ angular.module('ram.touchspin', [])
 						
 					}else{
 						ngModelCtrl.$setValidity('invalid', false);
+						scope.valid = false;
 						orignalRender();
 						return;
 					}
@@ -177,6 +180,7 @@ angular.module('ram.touchspin', [])
                     }
                     if(outOfBounds){
 						ngModelCtrl.$setValidity('invalid', false);
+						scope.valid = false;
 						orignalRender();
 						return;
                     }
@@ -260,7 +264,7 @@ angular.module('ram.touchspin', [])
         },
 
         template:
-		'<div class="input-group bootstrap-touchspin">' +
+		'<div class="input-group bootstrap-touchspin" ng-class="{\'has-error\': !valid}">' +
 		'  <span class="input-group-btn" ng-if="!verticalButtons">' +
 		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled"><i class="fa fa-minus"></i></button>' +
 		'  </span>' +
