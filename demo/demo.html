@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>
     <script src="../src/js/ramTouchSpin.js"></script>
-    <link rel="stylesheet" href="../src/css/ramTouchSpin.css"">
+    <link rel="stylesheet" href="../src/css/ramTouchSpin.css">
 </head>
 <body>
     <div id="example" ng-app="test" ng-controller="TestController">
@@ -34,12 +34,24 @@
 				<input name="testInputDirective" type="text" ng-model="model.value" vertical="false" decimal-sep="." ram-touch-spin>
 				<br>
 				<span class="error" style="color:red;" ng-show="demoForm.testInputDirective.$invalid">invalid input!</span>
-				<span  ng-hide="demoForm.testInputDirective.$invalid">the input is valid</span>
+				<span ng-hide="demoForm.testInputDirective.$invalid">the input is valid</span>
 			</form>	
 			
 			<h2>Min and Max</h2>
-			<input type="text" ng-model="model.minMaxValue" min="0" max="20" ram-touch-spin>
+			<p>Example with min: 5 and max: 20. The value is also marked as invalid if it is out of bounds</p>
+			<form name="demoFormMinMax" novalidate>		
+				<input name="minMaxInput" type="text" ng-model="model.minMaxValue" min="5" max="20" ram-touch-spin>
+				<br>
+				<span class="error" style="color:red;" ng-show="demoFormMinMax.minMaxInput.$invalid">invalid input!</span>
+				<span ng-hide="demoFormMinMax.minMaxInput.$invalid">the input is valid</span>
+			</form>	
+			
+			
 			<span>model.minMaxValue: {{model.minMaxValue}}</span>
+			
+			<br/>
+			<p>Code</p>
+			<pre><span ng-bind="minMaxExample"></span></pre>
 			
 			
 			
@@ -51,14 +63,13 @@
 			<input type="text" ng-model="model.newValue" initval="14" ram-touch-spin>
 			<span>model.newValue: {{model.newValue}}</span>
 			
-
 			<h2>Nullable</h2>
 			<p>If the nullable attribute is set to true empty string will set the model value to null. Otherwise it will be set to zero.</p>
-			<pre><span ng-bind="nullableExample"></span></pre>
 			<input type="text" ng-model="model.nullableValue" nullable="true" ram-touch-spin>
-			<span>model.nullableValue: {{model.nullableValue}}</span><br/>
 			<span ng-show="model.nullableValue==null">the value is null</span>
 			<span ng-show="model.nullableValue!=null">the value is not null</span>
+			<p>Code</p>
+			<pre><span ng-bind="nullableExample"></span></pre>
 			
 			<h2>Value directly on scope</h2>
 			<input type="text" ng-model="directValue"ram-touch-spin>
@@ -66,12 +77,20 @@
 			
 			<h2>Disable/Enable</h2>
 			<input type="checkbox" ng-model="enabled"><span>enabled: {{enabled}}</span>
-			<pre><span ng-bind="disableExample1"></span></pre>
 			<input type="text" ng-model="directValue"ram-touch-spin ng-disabled="!enabled">
+			
 			<br/>
-			<pre><span ng-bind="disableExample2"></span></pre>
+			<p>Code:</p>
+			<pre><span ng-bind="disableExample1"></span></pre>
+			
+			<br/>
 			<input type="text" vertical="false" ng-model="directValue"ram-touch-spin ng-disabled="!enabled">
 			<span>directValue: {{directValue}}</span>
+			
+			<br/>
+			<p>Code:</p>
+			<pre><span ng-bind="disableExample2"></span></pre>			
+
 		</div>
 	
     </div>
@@ -80,7 +99,7 @@
     angular.module("test", ["ram.touchspin"]).controller("TestController", function($scope){
 			$scope.model = {
                 value : 2,
-				minMaxValue : 3,
+				minMaxValue : 5,
 				nullableValue : null
             };
 			
@@ -93,6 +112,7 @@
 				$scope.modelValueType = typeof $scope.model.value;
 			});
 			
+			$scope.minMaxExample = '<input type="text" ng-model="model.minMaxValue" min="-10" max="20" ram-touch-spin>';
 			//$scope.initExample = '<input type="text" ng-model="model.newValue" initval="14" ram-touch-spin>';
 			$scope.nullableExample = '<input type="text" ng-model="model.nullableValue" nullable="true" ram-touch-spin>';
 			$scope.disableExample1 = '<input type="text" ng-model="directValue"ram-touch-spin ng-disabled="!enabled">';

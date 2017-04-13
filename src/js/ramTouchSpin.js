@@ -166,17 +166,19 @@ angular.module('ram.touchspin', [])
 					}
 					//parse and update
                     var value = toFloat(scope.val, scope);
-                    var adjustVal = false
+                    var outOfBounds = false
                     if (scope.max != undefined && value > scope.max){
                          value = scope.max; 
-                         adjustVal = true;
+                         outOfBounds = true;
                     }
                     else if (scope.min != undefined && value < scope.min) {
                         value = scope.min;
-                        adjustVal = true;
+                        outOfBounds = true;
                     }
-                    if(adjustVal){
-                        scope.val = toString(value,  scope.decimalSep);
+                    if(outOfBounds){
+						ngModelCtrl.$setValidity('invalid', false);
+						orignalRender();
+						return;
                     }
 					updateNgviewValue(value);
                 }
