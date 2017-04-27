@@ -266,19 +266,19 @@ angular.module('ram.touchspin', [])
         template:
 		'<div class="input-group bootstrap-touchspin" ng-class="{\'has-error\': !valid}">' +
 		'  <span class="input-group-btn" ng-if="!verticalButtons">' +
-		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled"><i class="fa fa-minus"></i></button>' +
+		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><i class="fa fa-minus"></i></button>' +
 		'  </span>' +
 		'  <span class="input-group-addon bootstrap-touchspin-prefix" ng-show="prefix" ng-bind="prefix"></span>' +
 		'  <input type="text" ng-model="val" class="form-control" ng-change="updateValue()" ng-blur="blur()" ng-focus="focus()" ng-disabled="disabled">' +
 		'  <span class="input-group-addon bootstrap-touchspin-postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '  <span class="input-group-btn" ng-if="!verticalButtons">' +
-		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled"><i class="fa fa-plus"></i></button>' +
+		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><i class="fa fa-plus"></i></button>' +
 		'  </span>' +
         '  <span class="input-group-btn-vertical" ng-if="verticalButtons">' +
-        '    <button class="btn btn-default bootstrap-touchspin-up" type="button" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled">' +
+        '    <button class="btn btn-default bootstrap-touchspin-up" type="button" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1">' +
 		'      <i class="glyphicon glyphicon-chevron-up"></i>' +
 		'    </button>' +
-        '    <button class="btn btn-default bootstrap-touchspin-down" type="button"ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled">' +
+        '    <button class="btn btn-default bootstrap-touchspin-down" type="button"ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1">' +
 		'        <i class="glyphicon glyphicon-chevron-down"></i>' +
 		'    </button>' +
         '  </span>' +
