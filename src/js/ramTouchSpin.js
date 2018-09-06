@@ -22,8 +22,6 @@ angular.module('ram.touchspin', [])
             scope.max = undefined;
         }
         scope.step = attrs.step || 1;
-        scope.prefix = attrs.prefix || undefined;
-        scope.postfix = attrs.postfix || undefined;
         scope.decimals = attrs.decimals || 0;
         scope.stepInterval = attrs.stepInterval || 100;
         scope.stepIntervalDelay = attrs.stepIntervalDelay || 500;
@@ -42,11 +40,6 @@ angular.module('ram.touchspin', [])
             scope.withKey = false;
         } else {
             scope.withKey = true;
-        }
-        if (attrs.vertical === "false") {
-            scope.verticalButtons = false;
-        } else {
-            scope.verticalButtons = true;
         }
         if (scope.decimalSep === ".") {
             scope.regex = /^-?(?:\d+|\d*\.(\d+)?)$/i;
@@ -264,26 +257,13 @@ angular.module('ram.touchspin', [])
         },
 
         template:
-		'<div class="input-group bootstrap-touchspin" ng-class="{\'has-error\': !valid}">' +
-		'  <span class="input-group-btn" ng-if="!verticalButtons">' +
-		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><i class="fa fa-minus"></i></button>' +
-		'  </span>' +
-		'  <span class="input-group-addon bootstrap-touchspin-prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-		'  <input type="text" ng-model="val" class="form-control" ng-change="updateValue()" ng-blur="blur()" ng-focus="focus()" ng-disabled="disabled">' +
-		'  <span class="input-group-addon bootstrap-touchspin-postfix" ng-show="postfix" ng-bind="postfix"></span>' +
-        '  <span class="input-group-btn" ng-if="!verticalButtons">' +
-		'    <button class="btn btn-default bootstrap-touchspin-down" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><i class="fa fa-plus"></i></button>' +
-		'  </span>' +
-        '  <span class="input-group-btn-vertical" ng-if="verticalButtons">' +
-        '    <button class="btn btn-default bootstrap-touchspin-up" type="button" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1">' +
-		'      <i class="glyphicon glyphicon-chevron-up"></i>' +
-		'    </button>' +
-        '    <button class="btn btn-default bootstrap-touchspin-down" type="button"ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1">' +
-		'        <i class="glyphicon glyphicon-chevron-down"></i>' +
-		'    </button>' +
-        '  </span>' +
-		'</div>'
+        '<md-input-container class="material-touchspin" ng-class"{\'has-error\': !valid}" layout="row">' +
+        //'<div class="material-touchspin" ng-class="{\'has-error\': !valid}">' +
+        '       <md-button class="md-accent md-raised material-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><md-icon>remove</md-icon></md-button>' +
+		'  <input type="text" ng-model="val" ng-change="updateValue()" ng-blur="blur()" ng-focus="focus()" ng-disabled="disabled">' +
+        '       <md-button class="md-accent md-raised material-touchspin-up" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><md-icon>add</md-icon></md-button>' +
+        //'</div>'
+        '</md-input-container>'
 
     };
-
 }]);

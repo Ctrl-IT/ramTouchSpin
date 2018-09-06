@@ -1,5 +1,5 @@
 
-.bootstrap-touchspin .input-group-btn-vertical {
+.material-touchspin {
   position: relative;
   white-space: nowrap;
   width: 1%;
@@ -7,32 +7,31 @@
   display: table-cell;
 }
 
-.bootstrap-touchspin .input-group-btn-vertical > .btn {
+md-input-container.material-touchspin > input {
   display: block;
-  float: none;
-  width: 100%;
-  max-width: 100%;
-  padding: 8px 10px;
-  margin-left: -1px;
-  position: relative;
+  width: unset;
+  float: left;
+  margin-top: 3px;
 }
 
-.bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
+.material-touchspin .md-button {
+  min-width: 30px;
+  max-width: 30px;
+  min-height: 30px;
+  max-height: 30px;
+  padding: 0;
+  display: block;
+  float: left;
+}
+
+.material-touchspin .md-button md-icon {
+  margin-bottom: 9px;
+}
+
+.material-touchspin .material-touchspin-up {
   border-radius: 0;
-  border-top-right-radius: 4px;
 }
 
-.bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-down {
-  margin-top: -2px;
+.material-touchspin .material-touchspin-down {
   border-radius: 0;
-  border-bottom-right-radius: 4px;
 }
-
-.bootstrap-touchspin .input-group-btn-vertical i {
-  position: absolute;
-  top: 3px;
-  left: 5px;
-  font-size: 9px;
-  font-weight: normal;
-}
-
