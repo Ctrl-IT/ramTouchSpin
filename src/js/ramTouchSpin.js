@@ -21,6 +21,7 @@ angular.module('ram.touchspin', [])
         }else{
             scope.max = undefined;
         }
+        scope.useFaIcons = attrs.useFaIcons || false;
         scope.step = attrs.step || 1;
         scope.decimals = attrs.decimals || 0;
         scope.stepInterval = attrs.stepInterval || 100;
@@ -259,9 +260,9 @@ angular.module('ram.touchspin', [])
         template:
         '<md-input-container class="material-touchspin" ng-class"{\'has-error\': !valid}" layout="row">' +
         //'<div class="material-touchspin" ng-class="{\'has-error\': !valid}">' +
-        '       <md-button class="md-accent md-raised material-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><md-icon>remove</md-icon></md-button>' +
+        '       <md-button class="md-accent md-raised material-touchspin-down" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><md-icon ng-if="!useFaIcons">remove</md-icon><i class="fas fa-minus" ng-if="useFaIcons"></i></md-button>' +
 		'       <input type="text" ng-model="val" ng-change="updateValue()" ng-blur="blur()" ng-focus="focus()" ng-disabled="disabled">' +
-        '       <md-button class="md-accent md-raised material-touchspin-up" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><md-icon>add</md-icon></md-button>' +
+        '       <md-button class="md-accent md-raised material-touchspin-up" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()" ng-disabled="disabled" tabindex="-1"><md-icon ng-if="!useFaIcons">add</md-icon><i class="fas fa-plus" ng-if="useFaIcons"></i></md-button>' +
         //'</div>'
         '</md-input-container>'
 

@@ -4,6 +4,7 @@
     <title>ram.touchSpin - Demo</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
@@ -19,10 +20,13 @@
 
 		<div class="col-xs-6">
 		
-			<h2>Simple example</h2>
+			<h2>Simple example with Material icons</h2>
 			<ram-touch-spin type="number" ng-model="model.value"></ram-touch-spin>
 			<span>model.value: {{model.value}}</span>
 			
+			<h2>Simple example with FontAwesome icons</h2>
+			<ram-touch-spin type="number" ng-model="model.value" use-fa-icons="true"></ram-touch-spin>
+			<span>model.value: {{model.value}}</span>
 			
 			<h2>Custom decimal separator</h2>
 			<p>Value directly on scope with custom decimal separator (# symbol).</p>

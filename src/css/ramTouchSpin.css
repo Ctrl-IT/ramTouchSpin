@@ -27,6 +27,9 @@ md-input-container.material-touchspin > input {
 .material-touchspin .md-button md-icon {
   margin-bottom: 9px;
 }
+button.md-button svg.svg-inline--fa {
+  margin-bottom: 3px !important;
+}
 
 .material-touchspin .material-touchspin-up {
   border-radius: 0;
